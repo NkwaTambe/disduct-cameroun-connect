@@ -1,4 +1,3 @@
-
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +8,7 @@ import MobileNavBar from "@/components/MobileNavBar";
 import { Database } from "@/integrations/supabase/types";
 
 type Product = Database["public"]["Tables"]["products"]["Row"] & {
-    seller_name?: string;
+  seller_name?: string;
 };
 
 const SearchResults = () => {
@@ -27,7 +26,9 @@ const SearchResults = () => {
         return;
       }
       setLoading(true);
-      const { data, error } = await supabase.rpc('search_products', { search_term: query });
+      const { data, error } = await supabase.rpc("search_products", {
+        search_term: query,
+      });
 
       if (error) {
         console.error("Error fetching search results:", error);
@@ -50,7 +51,9 @@ const SearchResults = () => {
             Résultats pour "{query}"
           </h1>
           <p className="text-muted-foreground">
-            {loading ? "Chargement..." : `${products.length} produit${products.length !== 1 ? 's' : ''} trouvé${products.length !== 1 ? 's' : ''}`}
+            {loading
+              ? "Chargement..."
+              : `${products.length} produit${products.length !== 1 ? "s" : ""} trouvé${products.length !== 1 ? "s" : ""}`}
           </p>
         </div>
 
@@ -79,51 +82,56 @@ const SearchResults = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product) => (
-              <Card 
+              <Card
                 key={product.id}
                 className="group hover:shadow-lg transition-all duration-300 border-border/50 flex flex-col cursor-pointer"
                 onClick={() => navigate(`/products/${product.id}`)}
               >
                 <CardContent className="p-0 flex-grow flex flex-col">
                   <div className="relative overflow-hidden rounded-t-lg">
-                    <img 
-                      src={product.image_urls?.[0] || '/placeholder.svg'} 
-                      alt={product.title || 'Image du produit'}
+                    <img
+                      src={product.image_urls?.[0] || "/placeholder.svg"}
+                      alt={product.title || "Image du produit"}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-3 right-3 flex space-x-2">
-                      <Button variant="ghost" size="icon" className="bg-background/80 hover:bg-background">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="bg-background/80 hover:bg-background"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-                  
+
                   <div className="p-4 flex-grow flex flex-col">
                     <h3 className="font-semibold text-foreground mb-2 line-clamp-2 flex-grow">
                       {product.title}
                     </h3>
-                    
+
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xl font-bold text-primary">
-                        {product.price ? `${product.price.toLocaleString()} FCFA` : 'Prix non spécifié'}
+                        {product.price
+                          ? `${product.price.toLocaleString()} FCFA`
+                          : "Prix non spécifié"}
                       </span>
                     </div>
-                    
+
                     <div className="flex items-center text-muted-foreground mb-3">
                       <MapPin className="h-4 w-4 mr-1" />
-                      <span className="text-sm">{product.location || 'Non spécifié'}</span>
+                      <span className="text-sm">
+                        {product.location || "Non spécifié"}
+                      </span>
                     </div>
-                    
+
                     <div className="mb-4">
                       <p className="text-sm text-muted-foreground">
-                        Vendeur: {product.seller_name || 'Anonyme'}
+                        Vendeur: {product.seller_name || "Anonyme"}
                       </p>
                     </div>
-                    
-                    <Button 
-                      className="w-full mt-auto"
-                      variant="default"
-                    >
+
+                    <Button className="w-full mt-auto" variant="default">
                       Contacter le vendeur
                     </Button>
                   </div>

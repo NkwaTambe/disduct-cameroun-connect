@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Heart} from "lucide-react";
+import { MapPin, Heart } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import MobileNavBar from "@/components/MobileNavBar";
 import { Database } from "@/integrations/supabase/types";
@@ -24,10 +24,10 @@ const CategoryProducts = () => {
       if (!category) return;
       setLoading(true);
       const { data, error } = await supabase
-        .from('products')
-        .select('*, profiles(*)')
-        .eq('category', category)
-        .eq('status', 'approved');
+        .from("products")
+        .select("*, profiles(*)")
+        .eq("category", category)
+        .eq("status", "approved");
 
       if (error) {
         console.error("Error fetching products:", error);
@@ -61,13 +61,13 @@ const CategoryProducts = () => {
   };
 
   const categoryNames = {
-    "electronique": "Électronique",
-    "mode": "Mode & Beauté",
-    "maison": "Maison & Jardin",
-    "automobile": "Automobile",
-    "immobilier": "Immobilier",
-    "agriculture": "Agriculture & Alimentation",
-    "services": "Services",
+    electronique: "Électronique",
+    mode: "Mode & Beauté",
+    maison: "Maison & Jardin",
+    automobile: "Automobile",
+    immobilier: "Immobilier",
+    agriculture: "Agriculture & Alimentation",
+    services: "Services",
   };
 
   const categoryName = category
@@ -83,7 +83,9 @@ const CategoryProducts = () => {
             {categoryName}
           </h1>
           <p className="text-muted-foreground">
-            {loading ? "Chargement..." : `${products.length} produit${products.length !== 1 ? 's' : ''} trouvé${products.length !== 1 ? 's' : ''}`}
+            {loading
+              ? "Chargement..."
+              : `${products.length} produit${products.length !== 1 ? "s" : ""} trouvé${products.length !== 1 ? "s" : ""}`}
           </p>
         </div>
 
@@ -119,16 +121,16 @@ const CategoryProducts = () => {
             content = (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {products.map((product) => (
-                  <Card 
-                    key={product.id} 
+                  <Card
+                    key={product.id}
                     className="group hover:shadow-lg transition-all duration-300 border-border/50 flex flex-col cursor-pointer"
                     onClick={() => navigate(`/products/${product.id}`)}
                   >
                     <CardContent className="p-0 flex-grow flex flex-col">
                       <div className="relative overflow-hidden rounded-t-lg">
-                        <img 
-                          src={product.images?.[0] || '/placeholder.svg'} 
-                          alt={product.title || 'Image du produit'}
+                        <img
+                          src={product.images?.[0] || "/placeholder.svg"}
+                          alt={product.title || "Image du produit"}
                           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-3 right-3">
@@ -141,32 +143,39 @@ const CategoryProducts = () => {
                           </Button>
                         </div>
                       </div>
-                      
+
                       <div className="p-4 flex-grow flex flex-col">
                         <h3 className="font-semibold text-foreground mb-2 line-clamp-2 flex-grow">
                           {product.title}
                         </h3>
-                        
+
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xl font-bold text-primary">
-                            {product.price ? `${product.price.toLocaleString()} FCFA` : 'Prix non spécifié'}
+                            {product.price
+                              ? `${product.price.toLocaleString()} FCFA`
+                              : "Prix non spécifié"}
                           </span>
                         </div>
-                        
+
                         <div className="flex items-center text-muted-foreground mb-3">
                           <MapPin className="h-4 w-4 mr-1" />
-                          <span className="text-sm">{product.location || 'Non spécifié'}</span>
+                          <span className="text-sm">
+                            {product.location || "Non spécifié"}
+                          </span>
                         </div>
-                        
+
                         <div className="mb-4">
                           <p className="text-sm text-muted-foreground">
                             {/* @ts-expect-error: profiles is joined from Supabase and not typed in Product */}
-                            Vendeur: {product.profiles?.full_name || 'Anonyme'}
+                            Vendeur: {product.profiles?.full_name || "Anonyme"}
                           </p>
                         </div>
-                        
-                        <Button 
-                          onClick={(e) => { e.stopPropagation(); handleContactSeller(); }}
+
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleContactSeller();
+                          }}
                           className="w-full mt-auto"
                           variant="default"
                         >

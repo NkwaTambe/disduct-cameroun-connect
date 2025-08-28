@@ -9,38 +9,38 @@ const categoriesData = [
     icon: Smartphone,
     title: "Électronique",
     description: "Smartphones, ordinateurs, accessoires",
-    slug: "electronique"
+    slug: "electronique",
   },
   {
     icon: Shirt,
     title: "Mode & Beauté",
     description: "Vêtements, chaussures, cosmétiques",
-    slug: "mode"
+    slug: "mode",
   },
   {
     icon: Home,
     title: "Maison & Jardin",
     description: "Meubles, décoration, électroménager",
-    slug: "maison"
+    slug: "maison",
   },
   {
     icon: Wheat,
     title: "Agriculture",
     description: "Produits frais, équipements agricoles",
-    slug: "agriculture"
+    slug: "agriculture",
   },
   {
     icon: Car,
     title: "Automobile",
     description: "Véhicules, pièces détachées",
-    slug: "automobile"
+    slug: "automobile",
   },
   {
     icon: Briefcase,
     title: "Services",
     description: "Services professionnels, formations",
-    slug: "services"
-  }
+    slug: "services",
+  },
 ];
 
 const CategoriesSection = () => {
@@ -49,7 +49,7 @@ const CategoriesSection = () => {
 
   useEffect(() => {
     const fetchCategoryCounts = async () => {
-      const { data, error } = await supabase.rpc('get_category_counts');
+      const { data, error } = await supabase.rpc("get_category_counts");
       if (!error && data) {
         setCounts(data);
       }
@@ -82,10 +82,10 @@ const CategoriesSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categoriesData.map((category, index) => {
             const count = counts[category.slug] || 0;
-            const isService = category.slug === 'services';
+            const isService = category.slug === "services";
             return (
-              <Card 
-                key={index} 
+              <Card
+                key={index}
                 className="group hover:shadow-elegant transition-all duration-300 cursor-pointer border-2 hover:border-primary/20"
                 onClick={() => handleCategoryClick(category.slug)}
               >
@@ -100,7 +100,14 @@ const CategoriesSection = () => {
                     {category.description}
                   </p>
                   <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                    {count} {isService ? (count > 1 ? 'services' : 'service') : (count > 1 ? 'produits' : 'produit')}
+                    {count}{" "}
+                    {isService
+                      ? count > 1
+                        ? "services"
+                        : "service"
+                      : count > 1
+                        ? "produits"
+                        : "produit"}
                   </span>
                 </CardContent>
               </Card>

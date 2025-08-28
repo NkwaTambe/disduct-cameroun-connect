@@ -1,7 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Eye, MessageCircle, CreditCard, Shield, Star, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Search,
+  Eye,
+  MessageCircle,
+  CreditCard,
+  Shield,
+  Star,
+  ArrowRight,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MobileNavBar from "@/components/MobileNavBar";
 import AuthModal from "@/components/AuthModal";
@@ -14,27 +28,30 @@ const CommentAcheter = () => {
     {
       icon: Search,
       title: "Recherchez",
-      description: "Utilisez notre moteur de recherche pour trouver le produit idéal.",
-      action: () => navigate('/'),
-      actionText: "Commencer la recherche"
+      description:
+        "Utilisez notre moteur de recherche pour trouver le produit idéal.",
+      action: () => navigate("/"),
+      actionText: "Commencer la recherche",
     },
     {
       icon: Eye,
       title: "Consultez",
       description: "Examinez les détails, photos et avis des autres acheteurs.",
-      action: () => navigate('/search'),
-      actionText: "Voir les derniers articles"
+      action: () => navigate("/search"),
+      actionText: "Voir les derniers articles",
     },
     {
       icon: MessageCircle,
       title: "Contactez",
-      description: "Posez vos questions au vendeur avant d'acheter pour être sûr de votre choix."
+      description:
+        "Posez vos questions au vendeur avant d'acheter pour être sûr de votre choix.",
     },
     {
       icon: CreditCard,
       title: "Achetez",
-      description: "Finalisez votre achat en toute sécurité en suivant les instructions."
-    }
+      description:
+        "Finalisez votre achat en toute sécurité en suivant les instructions.",
+    },
   ];
 
   return (
@@ -49,7 +66,8 @@ const CommentAcheter = () => {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Suivez ces étapes simples pour trouver les meilleurs produits au Cameroun en toute sécurité.
+            Suivez ces étapes simples pour trouver les meilleurs produits au
+            Cameroun en toute sécurité.
           </p>
         </div>
 
@@ -63,9 +81,15 @@ const CommentAcheter = () => {
                 <CardTitle className="text-xl">{step.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-grow flex flex-col">
-                <CardDescription className="text-base flex-grow">{step.description}</CardDescription>
+                <CardDescription className="text-base flex-grow">
+                  {step.description}
+                </CardDescription>
                 {step.action && (
-                  <Button variant="outline" className="mt-6 w-full" onClick={step.action}>
+                  <Button
+                    variant="outline"
+                    className="mt-6 w-full"
+                    onClick={step.action}
+                  >
                     {step.actionText}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -76,20 +100,32 @@ const CommentAcheter = () => {
         </div>
 
         <div className="bg-secondary/30 rounded-lg p-8 text-center">
-           <h2 className="text-2xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
             Prêt à trouver la perle rare ?
           </h2>
           <p className="text-muted-foreground mb-6">
-            Créez un compte pour une expérience complète ou commencez à explorer dès maintenant.
+            Créez un compte pour une expérience complète ou commencez à explorer
+            dès maintenant.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={() => navigate('/search')}>Parcourir les articles</Button>
-            <Button size="lg" variant="outline" onClick={() => setIsAuthModalOpen(true)}>Créer un compte</Button>
+            <Button size="lg" onClick={() => navigate("/search")}>
+              Parcourir les articles
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => setIsAuthModalOpen(true)}
+            >
+              Créer un compte
+            </Button>
           </div>
         </div>
-
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} initialView="signup" />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialView="signup"
+      />
     </div>
   );
 };

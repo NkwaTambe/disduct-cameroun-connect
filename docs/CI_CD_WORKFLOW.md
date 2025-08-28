@@ -13,52 +13,52 @@ The workflow consists of two main jobs: `lint` and `test`.
 This job focuses on code quality checks and runs once on `ubuntu-latest` with Node.js v20 (Active LTS).
 
 1.  **Checkout Code:**
-    *   `uses: actions/checkout@v4`
-    *   Checks out your repository code, making it available to the workflow.
+    - `uses: actions/checkout@v4`
+    - Checks out your repository code, making it available to the workflow.
 
 2.  **Setup Node.js Environment (v20):**
-    *   `uses: actions/setup-node@v4`
-    *   Configures the Node.js environment to version 20. It also caches `npm` dependencies to speed up subsequent runs.
+    - `uses: actions/setup-node@v4`
+    - Configures the Node.js environment to version 20. It also caches `npm` dependencies to speed up subsequent runs.
 
 3.  **Install Dependencies:**
-    *   `run: npm ci`
-    *   Installs project dependencies using `npm ci`, ensuring a clean installation based on `package-lock.json`.
+    - `run: npm ci`
+    - Installs project dependencies using `npm ci`, ensuring a clean installation based on `package-lock.json`.
 
 4.  **Run ESLint:**
-    *   `run: npm run lint`
-    *   Executes the ESLint linter to identify and report on patterns found in JavaScript/TypeScript code, ensuring adherence to coding standards and best practices.
+    - `run: npm run lint`
+    - Executes the ESLint linter to identify and report on patterns found in JavaScript/TypeScript code, ensuring adherence to coding standards and best practices.
 
 5.  **Check Prettier Formatting:**
-    *   `run: npm run prettier:check`
-    *   Verifies that the code adheres to the Prettier formatting rules, ensuring consistent code style across the project.
+    - `run: npm run prettier:check`
+    - Verifies that the code adheres to the Prettier formatting rules, ensuring consistent code style across the project.
 
 6.  **Run TypeScript Type Check:**
-    *   `run: tsc --noEmit`
-    *   Performs a TypeScript compilation check without emitting any output files, catching type-related errors early in the development process.
+    - `run: tsc --noEmit`
+    - Performs a TypeScript compilation check without emitting any output files, catching type-related errors early in the development process.
 
 ### Job 2: `test`
 
 This job runs after the `lint` job completes successfully (`needs: lint`). It focuses on building and testing the project across multiple Node.js versions.
 
 1.  **Checkout Code:**
-    *   `uses: actions/checkout@v4`
-    *   Checks out your repository code.
+    - `uses: actions/checkout@v4`
+    - Checks out your repository code.
 
 2.  **Setup Node.js Environment (Matrix):**
-    *   `uses: actions/setup-node@v4`
-    *   Configures the Node.js environment for each version specified in the matrix (18.x, 20.x, 22.x). Caches `npm` dependencies.
+    - `uses: actions/setup-node@v4`
+    - Configures the Node.js environment for each version specified in the matrix (18.x, 20.x, 22.x). Caches `npm` dependencies.
 
 3.  **Install Dependencies:**
-    *   `run: npm ci`
-    *   Installs project dependencies.
+    - `run: npm ci`
+    - Installs project dependencies.
 
 4.  **Build Project (Vite):**
-    *   `run: npm run build`
-    *   Builds the project for production.
+    - `run: npm run build`
+    - Builds the project for production.
 
 5.  **Run Tests:**
-    *   `run: npm test`
-    *   Executes the project's test suite. This step is now actively included in the workflow.
+    - `run: npm test`
+    - Executes the project's test suite. This step is now actively included in the workflow.
 
 ## Local Development and Testing
 

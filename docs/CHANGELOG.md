@@ -1,9 +1,8 @@
-
 # Project Refactoring & Feature Implementation Changelog
 
 ## Introduction
 
-This document outlines the significant changes and improvements made to the `disduct-cameroun-connect` codebase. The initial project was AI-generated and suffered from several issues, including a disjointed user flow, non-functional components, static UI, and a confusing structure. 
+This document outlines the significant changes and improvements made to the `disduct-cameroun-connect` codebase. The initial project was AI-generated and suffered from several issues, including a disjointed user flow, non-functional components, static UI, and a confusing structure.
 
 The goal of this refactoring effort was to address these core problems, establish a solid application architecture, and implement key features to make the application functional, logical, and testable.
 
@@ -16,7 +15,7 @@ This phase focused on fixing the application's foundation and making it behave l
 ### 1. Centralized Navigation & Authentication
 
 - **Before:** The login/logout flow was confusing. Authentication was handled differently on different pages, and the main navigation bar used an ambiguous icon that didn't clearly indicate the user's status.
-- **After:** The main navigation component (`src/components/Navigation.tsx`) is now the single source of truth for authentication. 
+- **After:** The main navigation component (`src/components/Navigation.tsx`) is now the single source of truth for authentication.
   - For logged-out users, it displays clear **"Se connecter" (Login)** and **"S'inscrire" (Sign Up)** buttons.
   - For logged-in users, it displays a dropdown menu with the user's name, leading to their profile and a clear **"Déconnexion" (Logout)** button.
 - **Files Modified:** `src/components/Navigation.tsx`, `src/components/AuthModal.tsx`

@@ -19,10 +19,7 @@ interface AuthModalProps {
   onClose: () => void;
 }
 
-const AuthModal = ({
-  isOpen,
-  onClose,
-}: AuthModalProps) => {
+const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -98,28 +95,27 @@ const AuthModal = ({
         onClose();
       }
     } else {
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-        if (error) {
-            toast({
-                title: "Erreur",
-                description: error.message,
-                variant: "destructive",
-            });
-        } else {
-            toast({
-                title: "Connexion réussie",
-                description: "Bienvenue sur Disduct !",
-            });
-            onClose();
-        }
+      if (error) {
+        toast({
+          title: "Erreur",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Connexion réussie",
+          description: "Bienvenue sur Disduct !",
+        });
+        onClose();
+      }
     }
     setIsLoading(false);
   };
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

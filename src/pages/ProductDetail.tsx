@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,7 +5,13 @@ import { Database } from "@/integrations/supabase/types";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Loader2, MapPin, Share2, MessageSquare } from "lucide-react";
@@ -31,15 +36,19 @@ const ProductDetail = () => {
       if (!id) return;
       setLoading(true);
       const { data, error } = await supabase
-        .from('products')
-        .select('*, profiles(*)')
-        .eq('id', id)
+        .from("products")
+        .select("*, profiles(*)")
+        .eq("id", id)
         .single();
 
       if (error || !data) {
         console.error("Error fetching product:", error);
-        toast({ title: "Erreur", description: "Produit non trouvé.", variant: "destructive" });
-        navigate('/');
+        toast({
+          title: "Erreur",
+          description: "Produit non trouvé.",
+          variant: "destructive",
+        });
+        navigate("/");
       } else {
         setProduct(data as ProductWithSeller);
       }
@@ -55,7 +64,7 @@ const ProductDetail = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: product.title || 'Découvrez ce produit sur Disduct',
+          title: product.title || "Découvrez ce produit sur Disduct",
           text: `Regardez ce que j'ai trouvé sur Disduct : ${product.title}`,
           url: productUrl,
         });
@@ -64,19 +73,29 @@ const ProductDetail = () => {
       }
     } else {
       navigator.clipboard.writeText(productUrl);
-      toast({ title: "Copié!", description: "Le lien du produit a été copié." });
+      toast({
+        title: "Copié!",
+        description: "Le lien du produit a été copié.",
+      });
     }
   };
 
   if (loading) {
-    return <div className="flex h-screen items-center justify-center"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+      </div>
+    );
   }
 
   if (!product) {
     return null; // Should be redirected by the effect
   }
 
-  const sellerName = product.profiles?.store_name || product.profiles?.full_name || "Vendeur Anonyme";
+  const sellerName =
+    product.profiles?.store_name ||
+    product.profiles?.full_name ||
+    "Vendeur Anonyme";
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,16 +110,24 @@ const ProductDetail = () => {
                   <CarouselItem key={index}>
                     <Card className="overflow-hidden">
                       <CardContent className="p-0 aspect-square flex items-center justify-center">
-                        <img src={url} alt={`${product.title} - image ${index + 1}`} className="w-full h-full object-cover" />
+                        <img
+                          src={url}
+                          alt={`${product.title} - image ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
                       </CardContent>
                     </Card>
                   </CarouselItem>
                 ))
               ) : (
                 <CarouselItem>
-                   <Card className="overflow-hidden">
+                  <Card className="overflow-hidden">
                     <CardContent className="p-0 aspect-square flex items-center justify-center bg-muted">
-                      <img src="/placeholder.svg" alt="Pas d'image disponible" className="w-1/2 h-1/2 object-contain text-muted-foreground" />
+                      <img
+                        src="/placeholder.svg"
+                        alt="Pas d'image disponible"
+                        className="w-1/2 h-1/2 object-contain text-muted-foreground"
+                      />
                     </CardContent>
                   </Card>
                 </CarouselItem>
@@ -113,8 +140,12 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div className="flex flex-col space-y-6">
             <div>
-              <Badge variant="secondary" className="mb-2">{product.category}</Badge>
-              <h1 className="text-3xl lg:text-4xl font-bold text-foreground">{product.title}</h1>
+              <Badge variant="secondary" className="mb-2">
+                {product.category}
+              </Badge>
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground">
+                {product.title}
+              </h1>
               {product.location && (
                 <div className="flex items-center text-muted-foreground mt-2">
                   <MapPin className="h-4 w-4 mr-1" />
@@ -124,13 +155,17 @@ const ProductDetail = () => {
             </div>
 
             <p className="text-3xl font-bold text-primary">
-              {product.price ? `${product.price.toLocaleString()} FCFA` : "Prix sur demande"}
+              {product.price
+                ? `${product.price.toLocaleString()} FCFA`
+                : "Prix sur demande"}
             </p>
 
             {product.description && (
               <div>
                 <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-muted-foreground whitespace-pre-wrap">{product.description}</p>
+                <p className="text-muted-foreground whitespace-pre-wrap">
+                  {product.description}
+                </p>
               </div>
             )}
 
@@ -138,21 +173,32 @@ const ProductDetail = () => {
               <CardContent className="p-4 flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar>
-                    <AvatarImage src={product.profiles?.avatar_url || undefined} />
+                    <AvatarImage
+                      src={product.profiles?.avatar_url || undefined}
+                    />
                     <AvatarFallback>{sellerName.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="text-sm text-muted-foreground">Vendu par</p>
-                    <p className="font-semibold text-foreground">{sellerName}</p>
+                    <p className="font-semibold text-foreground">
+                      {sellerName}
+                    </p>
                   </div>
                 </div>
-                <Button variant="outline" onClick={() => navigate(`/profile/${product.profiles?.id}`)}>Voir le profil</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate(`/profile/${product.profiles?.id}`)}
+                >
+                  Voir le profil
+                </Button>
               </CardContent>
             </Card>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="flex-1" asChild>
-                <a href={`mailto:${product.profiles?.email}?subject=Question concernant votre article: ${product.title}`}>
+                <a
+                  href={`mailto:${product.profiles?.email}?subject=Question concernant votre article: ${product.title}`}
+                >
                   <MessageSquare className="h-5 w-5 mr-2" />
                   Contacter le vendeur
                 </a>

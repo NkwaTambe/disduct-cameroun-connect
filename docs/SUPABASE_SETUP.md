@@ -16,10 +16,10 @@ First, you need a Supabase account and a project to work with.
 2.  Once you are logged into your dashboard, click the **"New Project"** button.
 3.  You will be prompted to choose an organization. You can use your default personal organization.
 4.  Fill out the project details:
-    -   **Name:** Give your project a clear name, for example: `disduct-cameroun-connect`.
-    -   **Database Password:** Create a strong, secure password and **save it somewhere safe**. You will need this if you ever have to restore your database.
-    -   **Region:** Choose the region closest to you or your users.
-    -   **Pricing Plan:** Select the **Free Plan**. It is more than sufficient for development and testing.
+    - **Name:** Give your project a clear name, for example: `disduct-cameroun-connect`.
+    - **Database Password:** Create a strong, secure password and **save it somewhere safe**. You will need this if you ever have to restore your database.
+    - **Region:** Choose the region closest to you or your users.
+    - **Pricing Plan:** Select the **Free Plan**. It is more than sufficient for development and testing.
 5.  Click **"Create new project"**. It will take a few minutes for your new project to be provisioned.
 
 ## Step 2: Get Your Project API Credentials
@@ -29,8 +29,8 @@ To connect the application to your new Supabase project, you need to get its uni
 1.  From your project's dashboard, find the gear icon for **Project Settings** in the bottom-left sidebar and click it.
 2.  In the settings menu, click on the **API** tab.
 3.  In this section, you will find the two credentials we need:
-    -   Under **Project URL**, you will find your project's unique URL. Copy this value.
-    -   Under **Project API Keys**, you will find the `anon` `public` key. This is the safe, public-facing key that allows the application to interact with your Supabase backend. Copy this key.
+    - Under **Project URL**, you will find your project's unique URL. Copy this value.
+    - Under **Project API Keys**, you will find the `anon` `public` key. This is the safe, public-facing key that allows the application to interact with your Supabase backend. Copy this key.
 
 ## Step 3: Configure Your Local Environment
 
@@ -67,9 +67,9 @@ Your project is connected, but the database is empty. This project contains migr
 
     This will open a browser window and ask you to log in and approve the authorization. Once you have, you can return to the terminal.
 
-3.  **Link Your Project:** This command connects your local codebase to your remote Supabase project. 
-    -   First, find your **Project Ref**. This is a unique 20-character ID for your project. You can find it in the URL of your dashboard: `https://app.supabase.com/project/YOUR_PROJECT_REF`.
-    -   Run the following command in your terminal, replacing the placeholder with your actual Project Ref:
+3.  **Link Your Project:** This command connects your local codebase to your remote Supabase project.
+    - First, find your **Project Ref**. This is a unique 20-character ID for your project. You can find it in the URL of your dashboard: `https://app.supabase.com/project/YOUR_PROJECT_REF`.
+    - Run the following command in your terminal, replacing the placeholder with your actual Project Ref:
 
     ```bash
     npx supabase link --project-ref YOUR_PROJECT_REF_HERE
@@ -102,6 +102,7 @@ This ensures that when users upload images via the "Create Product" form, the st
 Your Supabase backend is now fully configured and connected to the application.
 
 To start using the app:
+
 1.  **Restart your development server** (e.g., run `npm run dev` in your terminal). This is crucial for it to load the new environment variables from your `.env.local` file.
 2.  Open the application in your browser.
 3.  You should now be able to **create an account, log in, and test all the features** we have built.
