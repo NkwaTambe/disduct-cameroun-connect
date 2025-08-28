@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Smartphone, Shirt, Home, Wheat, Car, Briefcase } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -65,14 +64,18 @@ const CategoriesSection = () => {
   return (
     <section className="py-20 bg-secondary/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Explorez nos
-            <span className="bg-gradient-hero bg-clip-text text-transparent"> catégories</span>
+            <span className="bg-gradient-hero bg-clip-text text-transparent">
+              {" "}
+              catégories
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Découvrez une large gamme de produits et services adaptés aux besoins des Camerounais
+            Découvrez une large gamme de produits et services adaptés aux
+            besoins des Camerounais
           </p>
         </div>
 
@@ -104,7 +107,6 @@ const CategoriesSection = () => {
             );
           })}
         </div>
-
       </div>
     </section>
   );

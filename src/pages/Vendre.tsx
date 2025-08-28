@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from '@supabase/supabase-js';
@@ -64,7 +63,7 @@ const Vendre = () => {
     {
       icon: DollarSign,
       title: "5. Négociez le prix",
-      description: "Si nécessaire, négociez le prix de vente directement avec l'acheteur pour conclure la transaction."
+      description: "Si nécessaire, négociez le prix de vente directement avec l'acheteur pour conclure la transaction.",
     },
     {
       icon: Package,
@@ -120,6 +119,49 @@ const Vendre = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tips Section */}
+      <section className="bg-muted/50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">
+              Conseils pour réussir vos ventes
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card>
+              <CardHeader><CardTitle className="flex items-center space-x-2"><Camera className="h-5 w-5 text-primary" /><span>Photos de qualité</span></CardTitle></CardHeader>
+              <CardContent><p className="text-muted-foreground">Utilisez la lumière naturelle et prenez plusieurs angles. Montrez les détails et l'état réel de l'article.</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader><CardTitle className="flex items-center space-x-2"><MessageCircle className="h-5 w-5 text-primary" /><span>Communication rapide</span></CardTitle></CardHeader>
+              <CardContent><p className="text-muted-foreground">Répondez rapidement aux messages. Une bonne communication rassure les acheteurs.</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader><CardTitle className="flex items-center space-x-2"><DollarSign className="h-5 w-5 text-primary" /><span>Prix attractif</span></CardTitle></CardHeader>
+              <CardContent><p className="text-muted-foreground">Fixez un prix juste en vous basant sur l'état de l'article et les prix du marché.</p></CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">Prêt à commencer ?</h2>
+          <p className="text-xl text-muted-foreground mb-8">
+            Rejoignez la communauté Disduct et commencez à vendre dès aujourd'hui !
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="px-8 py-3" onClick={() => openAuthModal('signup')}>
+              Créer mon compte vendeur
+            </Button>
+            <Button variant="outline" size="lg" className="px-8 py-3" onClick={() => navigate('/comment-acheter')}>
+              Comment acheter
+            </Button>
           </div>
         </div>
       </section>

@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Store, ShoppingBag, Menu, ChevronDown, Smartphone, Shirt, Home, Wheat, Car, Briefcase, LogOut, User as UserIcon, LifeBuoy, Settings } from "lucide-react";
+import { Store, ShoppingBag, Menu, ChevronDown, Smartphone, Shirt, Home, Wheat, Car, Briefcase, LogOut, User as UserIcon, LifeBuoy, Settings, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
@@ -19,7 +18,7 @@ const categories = [
   { icon: Home, title: "Maison & Jardin", slug: "maison" },
   { icon: Wheat, title: "Agriculture", slug: "agriculture" },
   { icon: Car, title: "Automobile", slug: "automobile" },
-  { icon: Briefcase, title: "Services", slug: "services" }
+  { icon: Briefcase, title: "Services", slug: "services" },
 ];
 
 const Navigation = () => {
@@ -137,7 +136,7 @@ const Navigation = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
                 {categories.map((category) => (
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     key={category.slug}
                     onClick={() => navigate(`/category/${category.slug}`)}
                     className="flex items-center gap-2 cursor-pointer"
@@ -150,6 +149,9 @@ const Navigation = () => {
             </DropdownMenu>
             <a href="/vendre" className="text-foreground hover:text-primary transition-colors font-medium">
               Vendre
+            </a>
+            <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+              À propos
             </a>
           </div>
 
@@ -182,6 +184,7 @@ const Navigation = () => {
                       </Button>
                     ))}
                     <Button variant="ghost" className="justify-start text-lg pt-4" onClick={() => handleNavClick('/vendre')}>Vendre</Button>
+                    <Button variant="ghost" className="justify-start text-lg" onClick={() => handleNavClick('/about')}>À propos</Button>
                   </div>
 
                   {/* Mobile Actions */}

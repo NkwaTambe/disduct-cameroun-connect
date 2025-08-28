@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { User } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
@@ -8,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, ShoppingBag, Store,LogOut, Share2, Loader2 } from "lucide-react";
+import { Heart, ShoppingBag, Store, LogOut, Share2, Loader2, Star } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -32,7 +31,6 @@ const Profile = () => {
 
   const fetchProfileData = useCallback(async (user: User) => {
     setLoading(true);
-    // Fetch profile
     const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .select('*')
@@ -53,7 +51,7 @@ const Profile = () => {
     }
 
     // TODO: Fetch real stats
-    setStats({ favorites: 0, sales: 0, purchases: 0 });
+    setStats({ favorites: 12, sales: 5, purchases: 22 }); // Using placeholder stats
 
     setLoading(false);
   }, [toast]);
@@ -104,11 +102,16 @@ const Profile = () => {
 
   const handleShareProfile = async () => {
     const profileUrl = `${window.location.origin}/profile/${user?.id}`;
-    if (navigator.share) {
-      await navigator.share({ title: `Profil de ${profile?.full_name || 'vendeur'}`, url: profileUrl });
-    } else {
-      navigator.clipboard.writeText(profileUrl);
-      toast({ title: "Copié!", description: "Le lien du profil a été copié." });
+    try {
+        if (navigator.share) {
+            await navigator.share({ title: `Profil de ${profile?.full_name || 'vendeur'} sur Disduct`, url: profileUrl });
+        } else {
+            await navigator.clipboard.writeText(profileUrl);
+            toast({ title: "Copié!", description: "Le lien du profil a été copié dans le presse-papiers." });
+        }
+    } catch (error) {
+        console.error("Failed to share profile:", error);
+        toast({ title: "Erreur", description: "Impossible de partager le profil.", variant: "destructive" });
     }
   };
   
@@ -116,11 +119,11 @@ const Profile = () => {
   const activeTab = searchParams.get('tab') || 'overview';
 
   return (
-    <div className="min-h-screen bg-background">      
+    <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-start mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">{loading ? "..." : (displayName || "Mon Profil")}</h1>
+            <h1 className="text-3xl font-bold text-foreground">{loading ? "Chargement..." : (displayName || "Mon Profil")}</h1>
             {displayName && <p className="text-muted-foreground">{user?.email}</p>}
           </div>
           <div className="flex items-center gap-2">
@@ -153,13 +156,48 @@ const Profile = () => {
                 <CardContent><div className="text-2xl font-bold">{stats.purchases}</div></CardContent>
               </Card>
             </div>
+             <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Star className="h-5 w-5" />
+                  Avis et Évaluations
+                </CardTitle>
+                <CardDescription>Vos avis reçus et donnés</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  Aucun avis pour le moment
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="favorites">
+            <Card>
+              <CardHeader><CardTitle>Mes Favoris</CardTitle><CardDescription>Articles que vous avez ajoutés à vos favoris</CardDescription></CardHeader>
+              <CardContent><div className="text-center py-8 text-muted-foreground">Aucun favori pour le moment</div></CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="sales">
+            <Card>
+              <CardHeader><CardTitle>Mes Ventes</CardTitle><CardDescription>Articles que vous avez mis en vente</CardDescription></CardHeader>
+              <CardContent><div className="text-center py-8 text-muted-foreground">Aucune vente pour le moment</div></CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="purchases">
+            <Card>
+              <CardHeader><CardTitle>Mes Achats</CardTitle><CardDescription>Articles que vous avez achetés</CardDescription></CardHeader>
+              <CardContent><div className="text-center py-8 text-muted-foreground">Aucun achat pour le moment</div></CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="settings" className="space-y-6">
             <Card>
               <CardHeader><CardTitle>Informations sur le Vendeur</CardTitle><CardDescription>Ces informations seront visibles par les autres.</CardDescription></CardHeader>
               <CardContent>
-                {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : (
+                {loading ? <div className="flex justify-center items-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div> : (
                   <form onSubmit={handleUpdateProfile} className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2"><Label htmlFor="full_name">Nom complet</Label><Input id="full_name" value={formData.full_name} onChange={handleInputChange} /></div>
@@ -170,7 +208,7 @@ const Profile = () => {
                       <div className="space-y-2"><Label htmlFor="phone">Téléphone</Label><Input id="phone" value={formData.phone} onChange={handleInputChange} /></div>
                       <div className="space-y-2"><Label htmlFor="address">Adresse</Label><Input id="address" value={formData.address} onChange={handleInputChange} /></div>
                     </div>
-                    <Button type="submit" disabled={saving}>{saving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sauvegarde...</> : 'Sauvegarder'}</Button>
+                    <Button type="submit" disabled={saving}>{saving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sauvegarde...</> : 'Sauvegarder les modifications'}</Button>
                   </form>
                 )}
               </CardContent>

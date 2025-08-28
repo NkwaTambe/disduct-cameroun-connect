@@ -43,7 +43,10 @@ const CommentAcheter = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-foreground mb-4">
-            Comment acheter sur <span className="bg-gradient-hero bg-clip-text text-transparent">disduct</span>
+            Comment acheter sur{" "}
+            <span className="bg-gradient-hero bg-clip-text text-transparent">
+              disduct
+            </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Suivez ces étapes simples pour trouver les meilleurs produits au Cameroun en toute sécurité.

@@ -42,11 +42,11 @@ const CategoryProducts = () => {
   }, [category]);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -70,7 +70,9 @@ const CategoryProducts = () => {
     "services": "Services",
   };
 
-  const categoryName = category ? categoryNames[category as keyof typeof categoryNames] : "Catégorie";
+  const categoryName = category
+    ? categoryNames[category as keyof typeof categoryNames]
+    : "Catégorie";
 
   return (
     <div className="min-h-screen bg-background">
@@ -164,7 +166,7 @@ const CategoryProducts = () => {
                         </div>
                         
                         <Button 
-                          onClick={handleContactSeller}
+                          onClick={(e) => { e.stopPropagation(); handleContactSeller(); }}
                           className="w-full mt-auto"
                           variant="default"
                         >
@@ -181,9 +183,9 @@ const CategoryProducts = () => {
         })()}
       </div>
 
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
       />
     </div>
   );
